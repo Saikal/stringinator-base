@@ -1,47 +1,92 @@
 const _ = require('./underbar');
 
-const first = function(str, n) {
-  // Your code goes here
+const first = function(str, n=1) {
+  return n === 1 ? str[0] : str.slice(0, n);
 };
 
-const last = function(str, n) {
-  // Your code goes here
+const last = function(str, n = 1) {
+  return n === 1 ? str[str.length - 1] : str.slice(Math.max(0, str.length - n));
+
 };
 
 const removeChar = function(str, target) {
-  // hint: use _.reject
-  // Your code goes here
+
+  let res = str.replace(target, "");
+  return res;
 };
 
 const hasChar = function(str, target) {
-  // hint: use _.some
-  // Your code goes here
 };
 
 const isOnlyDigits = function(str) {
-  // Your code goes here
+  for (let i = 0; i < str.length; i++){
+    if(!(parseInt(str[i]) in [0,1,2,3,4,5,6,7,8,9])){
+      return false;
+    }
+  }
+  return true;
 };
 
 const filterToOnlyDigits = function(str) {
-  // Your code goes here
+  let result = [];
+  for (let i = 0; i < str.length; i++){
+    if(parseInt(str[i]) in [0,1,2,3,4,5,6,7,8,9]){
+      result.push(str[i]);
+    }
+  }
+  return result.join('');
 };
 
 const truncateString = function(val, maxLength) {
-  // A freebie solution, this is the ONLY method here that doesn't use Underbar.
   return String(val).slice(0, maxLength);
 };
 
 const truncateLongItems = function(obj, maxLength) {
-  // hint: use truncateString above
-  // Your code goes here
+  let result = [];
+  for(let key in obj){
+   result.push(truncateString(obj[key], maxLength));
+  }
+  return result;
 };
 
 const countChars = function(str) {
-  // Your code goes here
+  let expected = {};
+  
+  for (let i = 0; i < str.length; i++){
+    if (!expected[`${str[i]}`]) {
+      let count = 1;
+      for(let k = i+1; k < str.length; k++){
+        if(str[i] === str[k]) {
+          count++;
+        }
+      }
+      expected[str[i]] = count;
+    }
+  }
+  return expected;
 };
 
+
 const dedup = function(str) {
-  // Your code goes here
+  let result = ''; 
+  let flag;
+  for(let i = 0; i < str.length; i++){
+    flag = 0;
+    for(let k = 0; k < result.length; k++){
+      if(str[i] === result[k]){
+        flag = 1;
+        break;
+      }
+    }
+    if(flag !== 1){
+      result += str[i];
+    }
+
+  }
+    if(result === str){
+      return str;
+    }
+  return result;
 };
 
 module.exports = {
